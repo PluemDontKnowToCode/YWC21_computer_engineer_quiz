@@ -18,7 +18,7 @@ export function clampFrameCount(input: string): number {
 export function makeReference(previous: string): string {
   let next = "";
   do {
-    next = Array.from({ length: 8 }, () => String(Math.floor(Math.random() * 5) + 1)).join(" ");
+    next = Array.from({ length: 8 }, () => String(Math.floor(Math.random() * 9) + 1)).join(" ");
   } while (next === previous);
   return next;
 }

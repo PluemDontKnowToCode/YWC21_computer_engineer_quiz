@@ -32,7 +32,7 @@ export default function CacheTakeaway({ policy }: CacheTakeawayProps) {
 
   return (
     <div className="takeaway">
-      <div className="takeaway-icon">✦</div>
+      <div className="takeaway-icon" aria-hidden="true">→</div>
       <div>
         <strong>{note.title}</strong>
         <p>{note.rule}</p>

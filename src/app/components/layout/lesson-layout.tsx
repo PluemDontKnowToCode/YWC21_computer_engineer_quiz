@@ -25,7 +25,7 @@ export default function LessonLayout({ lesson, kicker, intro, children }: Lesson
         <div className="content-wrap">
           <div className="lesson-toolbar">
             <div className="module-kicker">
-              <span className="spark">✳</span>
+              <span className="module-marker" aria-hidden="true" />
               <span className="kicker-dot">·</span> {kicker}
             </div>
           </div>

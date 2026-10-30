@@ -53,12 +53,6 @@ const LESSON_GROUPS: LessonNavigationGroup[] = [
       },
     ],
   },
-  {
-    title: "Practice",
-    items: [
-      { tab: "quiz", code: "QZ", label: "QUIZ", title: "Mixed practice quiz", href: "/quiz" },
-    ],
-  },
 ];
 
 export default function SiteSidebar({ lesson, isExpanded, onToggle }: SiteSidebarProps) {

@@ -4,6 +4,8 @@ type NumberFormats = {
   binary: string;
 };
 
+export const MAX_UNSIGNED_BYTE = 255;
+
 export type NumberBase = keyof NumberFormats;
 
 export function isNumberBase(value: string): value is NumberBase {
@@ -21,7 +23,7 @@ function formatNumber(value: number): NumberFormats {
 function parseDecimalInput(input: string): number | null {
   if (!/^\d{1,3}$/.test(input)) return null;
   const value = Number(input);
-  return value <= 255 ? value : null;
+  return value <= MAX_UNSIGNED_BYTE ? value : null;
 }
 
 function parseHexInput(input: string): number | null {

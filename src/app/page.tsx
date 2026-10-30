@@ -11,10 +11,17 @@ const learningPaths = [
   },
   {
     number: "02",
-    title: "Bit operations",
-    description: "Practice binary arithmetic, shifts, and number conversions.",
+    title: "Bit arithmetic & shifts",
+    description: "Practice binary addition, subtraction, and bit shifts.",
     href: "/bits",
     action: "Explore bit lessons",
+  },
+  {
+    number: "03",
+    title: "Number conversion",
+    description: "Convert values between decimal, hexadecimal, and binary.",
+    href: "/bits/convert",
+    action: "Open the converter",
   },
 ];
 
@@ -28,21 +35,29 @@ export default function Home() {
               <span className="welcome-brand-mark">CE</span>
               <span>bytewise<small>THE LEARNING LAB</small></span>
             </Link>
-            <Link className="welcome-quiz-link" href="/quiz">Go to practice quiz <span aria-hidden="true">↗</span></Link>
           </header>
 
           <section className="welcome-hero" aria-labelledby="welcome-title">
-            <p className="welcome-eyebrow"><span aria-hidden="true">✳</span> COMPUTER ENGINEERING, MADE PRACTICAL</p>
-            <h1 id="welcome-title">Understand the systems behind the screen.</h1>
-            <p className="welcome-intro">
-              Build confidence with interactive lessons on memory, cache policies, and bit operations.
-              Learn one concept at a time, at your own pace.
-            </p>
-            <div className="welcome-actions">
-              <Link className="welcome-primary-action" href="/cache">Start learning <span aria-hidden="true">→</span></Link>
-              <Link className="welcome-secondary-action" href="/quiz">Practice with a quiz</Link>
+            <div className="welcome-hero-copy">
+              <p className="welcome-eyebrow"><span aria-hidden="true">01 /</span> A PRACTICAL GUIDE TO COMPUTER SYSTEMS</p>
+              <h1 id="welcome-title">Understand the systems behind the screen.</h1>
+              <p className="welcome-intro">
+                Build confidence with interactive lessons on memory, cache policies, and bit operations.
+                Learn one concept at a time, at your own pace.
+              </p>
+              <div className="welcome-actions">
+                <Link className="welcome-primary-action" href="/cache">Start learning <span aria-hidden="true">→</span></Link>
+              </div>
+              <p className="welcome-note">Start with cache memory, then work through binary operations.</p>
             </div>
-            <p className="welcome-note">No account needed. Your quiz progress stays in this browser.</p>
+            <aside className="welcome-field-note" aria-label="About the learning paths">
+              <span className="welcome-field-label">INSIDE THE LAB</span>
+              <strong>Three topics.<br />One system at a time.</strong>
+              <span className="welcome-field-rule" aria-hidden="true" />
+              <span className="welcome-field-meta"><b>01</b> Memory &amp; cache</span>
+              <span className="welcome-field-meta"><b>02</b> Binary logic &amp; shifts</span>
+              <span className="welcome-field-meta"><b>03</b> Number conversion</span>
+            </aside>
           </section>
 
           <section className="welcome-paths" aria-labelledby="paths-title">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   formatForBase,
   isNumberBase,
+  MAX_UNSIGNED_BYTE,
   parseNumberInput,
   type NumberBase,
 } from "../../service/bits/number-conversion";
@@ -28,6 +29,13 @@ export default function NumberConverter() {
 
   const handleSourceValueChange = (value: string) => {
     setSourceValue(value);
+    setAnswer("");
+    setIsAnswerVisible(false);
+  };
+
+  const handleRandomNumber = () => {
+    const randomValue = Math.floor(Math.random() * (MAX_UNSIGNED_BYTE + 1));
+    setSourceValue(formatForBase(randomValue, sourceBase));
     setAnswer("");
     setIsAnswerVisible(false);
   };
@@ -103,14 +111,19 @@ export default function NumberConverter() {
                 ))}
               </select>
             </label>
-            <ConverterField
-              label="INPUT VALUE"
-              ariaLabel={`Input value in ${BASE_LABELS[sourceBase]}`}
-              inputMode={sourceBase === "hex" ? undefined : "numeric"}
-              autoCapitalize={sourceBase === "hex" ? "characters" : undefined}
-              value={sourceValue}
-              onChange={handleSourceValueChange}
-            />
+            <div className="conversion-input-control">
+              <ConverterField
+                label="INPUT VALUE"
+                ariaLabel={`Input value in ${BASE_LABELS[sourceBase]}`}
+                inputMode={sourceBase === "hex" ? undefined : "numeric"}
+                autoCapitalize={sourceBase === "hex" ? "characters" : undefined}
+                value={sourceValue}
+                onChange={handleSourceValueChange}
+              />
+              <button className="conversion-randomize" type="button" onClick={handleRandomNumber}>
+                Random number
+              </button>
+            </div>
           </div>
 
           <div className="conversion-controls">
@@ -167,7 +180,7 @@ export default function NumberConverter() {
 
       <p className="sequence-caption">Hex accepts 00–FF. Binary accepts up to 8 bits; leading zeros are optional in your answer.</p>
       <div className="takeaway conversion-example">
-        <div className="takeaway-icon" aria-hidden="true">✦</div>
+        <div className="takeaway-icon" aria-hidden="true">→</div>
         <div>
           <strong>Read the same value in three bases</strong>
           <p>Decimal 13 = binary 00001101 = hexadecimal 0D. The 1s in 00001101 represent 8 + 4 + 1; the hex digit D represents 13.</p>

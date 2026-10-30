@@ -16,11 +16,9 @@ This repository is a small computer-engineering learning app built with Next.js 
 
 ### App structure
 
-- `src/app/page.tsx` renders the welcome page and links into the lessons and practice quiz.
+- `src/app/page.tsx` renders the welcome page and links into the lessons.
 - Cache lesson routes are `/cache` (FIFO), `/cache/lru`, `/cache/min`, and `/cache/lfu`.
 - Bit lesson routes are `/bits` (SUM), `/bits/subtract`, `/bits/shl`, `/bits/shr`, and `/bits/convert`.
-- The mixed practice quiz is at `/quiz`; its correct-answer total is stored in browser `localStorage`.
-- `src/app/quiz/` contains the quiz route, questions, progress hook, and `components/` for quiz UI.
 - `src/app/cache/cache-lesson.tsx` and `src/app/bits/bit-lesson.tsx` compose the independent interactive lesson UIs from feature components.
 - `src/app/cache/components/controls/`, `table/`, and `feedback/` group the cache controls, table cells, and lesson feedback.
 - `src/app/bits/components/operation/` and `converter/` group bit-operation UI and number-converter fields.
