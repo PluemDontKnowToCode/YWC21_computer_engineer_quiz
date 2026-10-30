@@ -20,15 +20,14 @@ This repository is a small computer-engineering learning app built with Next.js 
 - Cache lesson routes are `/cache` (FIFO), `/cache/lru`, `/cache/min`, and `/cache/lfu`.
 - Bit lesson routes are `/bits` (SUM), `/bits/subtract`, `/bits/shl`, `/bits/shr`, and `/bits/convert`.
 - The mixed practice quiz is at `/quiz`; its correct-answer total is stored in browser `localStorage`.
-- `src/app/quiz/` contains the quiz route, questions, progress hook, and quiz display components.
+- `src/app/quiz/` contains the quiz route, questions, progress hook, and `components/` for quiz UI.
 - `src/app/cache/cache-lesson.tsx` and `src/app/bits/bit-lesson.tsx` compose the independent interactive lesson UIs from feature components.
-- `src/app/cache/components/` contains the cache input, table cells, answer states, and summary display components.
-- `src/app/bits/components/` contains the bit-operation and converter field display components.
+- `src/app/cache/components/controls/`, `table/`, and `feedback/` group the cache controls, table cells, and lesson feedback.
+- `src/app/bits/components/operation/` and `converter/` group bit-operation UI and number-converter fields.
 - `src/app/bits/number-converter.tsx` converts unsigned 8-bit values between decimal, hexadecimal, and binary.
 - The left lesson sidebar has one entry per lesson route; keep its links and active-page state synchronized with the route.
-- `src/app/components/lesson-layout.tsx` contains the shared lesson shell and sidebar expansion state.
-- `src/app/components/site-sidebar.tsx` contains the lesson sidebar and its collapse control. Keep route selection and `aria-current` in sync with the active lesson.
-- `src/app/components/lesson-types.ts` contains the shared lesson navigation type used by the shell and route components.
+- `src/app/components/layout/` contains the shared lesson and welcome shells.
+- `src/app/components/navigation/` contains the lesson sidebar, collapse control, nav links, and shared lesson type. Keep route selection and `aria-current` in sync with the active lesson.
 - The app uses a fixed dark theme in CSS; there is no theme toggle or theme attribute on the root HTML element.
 - `src/service/cache/` separates cache input helpers, shared types, simulation, and one eviction strategy per file. LFU uses LRU as its tie-breaker.
 - `src/service/bits/` separates binary formatting, bit-operation calculations, and decimal/hex/binary conversion helpers.

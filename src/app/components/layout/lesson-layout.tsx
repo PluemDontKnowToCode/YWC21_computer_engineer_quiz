@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import SiteSidebar from "./site-sidebar";
-import type { LessonTab } from "./lesson-types";
+import SiteSidebar from "../navigation/site-sidebar";
+import type { LessonTab } from "../navigation/lesson-types";
 
 type LessonLayoutProps = {
   lesson: LessonTab;

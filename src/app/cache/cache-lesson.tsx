@@ -1,9 +1,9 @@
 "use client";
 
 import type { Policy } from "../../service/cache/types";
-import CacheInputPanel from "./components/cache-input-panel";
-import CacheResults from "./components/cache-results";
-import CacheTakeaway from "./components/cache-takeaway";
+import CacheInputPanel from "./components/controls/cache-input-panel";
+import CacheResults from "./components/table/cache-results";
+import CacheTakeaway from "./components/feedback/cache-takeaway";
 import useCacheLesson from "./use-cache-lesson";
 
 export default function CacheLesson({ policy }: { policy: Policy }) {
@@ -20,7 +20,7 @@ export default function CacheLesson({ policy }: { policy: Policy }) {
       </div>
 
       <p className="section-copy">
-        When the cache is full, this policy chooses which page to remove. Set the frame count and reference sequence, then enter the cache contents as each reference arrives.
+        Read each reference from left to right. Enter the page when it is loaded after a miss, use + when it is a hit, and leave the other frame cells empty.
       </p>
 
       <CacheInputPanel
@@ -49,7 +49,7 @@ export default function CacheLesson({ policy }: { policy: Policy }) {
         />
       </div>
 
-      <CacheTakeaway />
+      <CacheTakeaway policy={policy} />
     </section>
   );
 }

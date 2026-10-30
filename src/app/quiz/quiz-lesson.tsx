@@ -1,7 +1,7 @@
 "use client";
 
-import QuizProgressCard from "../components/quiz-progress-card";
-import QuizQuestionCard from "../components/quiz-question-card";
+import QuizProgressCard from "./components/quiz-progress-card";
+import QuizQuestionCard from "./components/quiz-question-card";
 import { quizQuestions } from "./questions";
 import useQuizProgress from "./use-quiz-progress";
 

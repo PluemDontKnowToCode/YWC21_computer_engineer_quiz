@@ -5,7 +5,7 @@ type CacheAnswerToggleProps = {
 
 export default function CacheAnswerToggle({ isAnswerVisible, onToggle }: CacheAnswerToggleProps) {
   const label = isAnswerVisible ? "Hide answer" : "Show answer";
-  const symbol = isAnswerVisible ? "−" : "＋";
+  const symbol = isAnswerVisible ? "-" : "+";
 
   return (
     <button className="show-cache-answer" type="button" onClick={onToggle}>

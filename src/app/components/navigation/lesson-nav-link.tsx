@@ -18,10 +18,15 @@ export default function LessonNavLink({ lesson, tab, code, label, title, href }:
     <Link
       className={className}
       href={href}
+      aria-label={`${label}: ${title}`}
       title={title}
       aria-current={isCurrentLesson ? "page" : undefined}
     >
-      <span aria-hidden="true">{code}</span>{label}
+      <span className="nav-code" aria-hidden="true">{code}</span>
+      <span className="nav-item-copy">
+        <span className="nav-item-label">{label}</span>
+        <small className="nav-item-title">{title}</small>
+      </span>
     </Link>
   );
 }

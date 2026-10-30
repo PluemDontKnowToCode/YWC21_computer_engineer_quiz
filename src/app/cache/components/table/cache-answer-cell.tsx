@@ -1,7 +1,7 @@
 type CacheAnswerCellProps = {
-  value: number | undefined;
+  value: string | undefined;
 };
 
 export default function CacheAnswerCell({ value }: CacheAnswerCellProps) {
-  return <span className="answer-cell">{value ?? "–"}</span>;
+  return <span className="answer-cell">{value ?? ""}</span>;
 }

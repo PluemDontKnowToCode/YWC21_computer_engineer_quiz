@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import SiteSidebar from "./site-sidebar";
+import SiteSidebar from "../navigation/site-sidebar";
 
 type WelcomeLayoutProps = {
   children: ReactNode;

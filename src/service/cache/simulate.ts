@@ -37,12 +37,13 @@ export function simulate(policy: Policy, references: number[], capacity: number)
         lastUsedAt,
       });
       evicted = frames[victimIndex];
-      frames.splice(victimIndex, 1);
+      frames[victimIndex] = page;
       frequency.delete(evicted);
       lastUsedAt.delete(evicted);
+    } else {
+      frames.push(page);
     }
 
-    frames.push(page);
     insertedAt.set(page, index);
     frequency.set(page, 1);
     lastUsedAt.set(page, index);

@@ -26,15 +26,25 @@ const lessonGroups: { title: string; items: { tab: LessonTab; code: string; labe
       { tab: "subtract", code: "SB", label: "SUBTRACT", title: "Subtract", href: "/bits/subtract" },
       { tab: "shl", code: "SL", label: "SHL", title: "Shift left", href: "/bits/shl" },
       { tab: "shr", code: "SR", label: "SHR", title: "Shift right", href: "/bits/shr" },
+    ],
+  },
+  {
+    title: "Number Convertions",
+    items: [
       { tab: "convert", code: "CV", label: "CONVERT", title: "Decimal, hexadecimal, and binary converter", href: "/bits/convert" },
     ],
   },
   {
-    title: "Practice",
+    title: "...MORE CONTENT...",
     items: [
-      { tab: "quiz", code: "QZ", label: "QUIZ", title: "Mixed practice quiz", href: "/quiz" },
     ],
   },
+  // {
+  //   title: "Practice",
+  //   items: [
+  //     { tab: "quiz", code: "QZ", label: "QUIZ", title: "Mixed practice quiz", href: "/quiz" },
+  //   ],
+  // },
 ];
 
 export default function SiteSidebar({ lesson, isExpanded, onToggle }: SiteSidebarProps) {
@@ -51,8 +61,6 @@ export default function SiteSidebar({ lesson, isExpanded, onToggle }: SiteSideba
           <span>bytewise<small>THE LEARNING LAB</small></span>
         </Link>
       </div>
-
-      <div className="side-label section-label">Lessons</div>
       {lessonGroups.map((group) => (
         <div className="lesson-group" key={group.title}>
           <div className="side-label lesson-group-label">{group.title}</div>
@@ -67,17 +75,6 @@ export default function SiteSidebar({ lesson, isExpanded, onToggle }: SiteSideba
           </nav>
         </div>
       ))}
-
-      <div className="sidebar-bottom">
-        <div className="streak-icon">✳</div>
-        <div>
-          <strong>Keep your streak alive</strong>
-          <p>One small lesson a day adds up.</p>
-        </div>
-        <div className="streak-count">
-          3 <span>days</span>
-        </div>
-      </div>
     </aside>
   );
 }

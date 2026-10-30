@@ -1,4 +1,4 @@
-import type { QuizQuestion } from "../quiz/questions";
+import type { QuizQuestion } from "../questions";
 import QuizAnswerOption from "./quiz-answer-option";
 import QuizFeedback from "./quiz-feedback";
 

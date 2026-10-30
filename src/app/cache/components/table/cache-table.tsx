@@ -1,7 +1,5 @@
-import type { CacheStep, Policy } from "../../../service/cache/types";
-import CacheFaultSummary from "./cache-fault-summary";
+import type { CacheStep, Policy } from "../../../../service/cache/types";
 import CacheFrameCell from "./cache-frame-cell";
-import CacheResultCell from "./cache-result-cell";
 
 type CacheTableProps = {
   references: number[];
@@ -22,31 +20,45 @@ export default function CacheTable({
   frameAnswers,
   onFrameAnswer,
 }: CacheTableProps) {
+  const events = steps.map((step, index) => {
+    const previousFrames = steps[index - 1]?.frames ?? [];
+    const frameIndex = step.hit
+      ? step.frames.indexOf(step.page)
+      : step.evicted === null
+        ? previousFrames.length
+        : previousFrames.indexOf(step.evicted);
+
+    return { frameIndex, value: step.hit ? "+" : String(step.page) };
+  });
+
   return (
-    <div className="cache-table-wrap input-grid-wrap">
+    <div className="cache-table-wrap">
       <table className="cache-grid-table">
         <thead>
           <tr>
-            <th className="row-name">{policy} · Frame</th>
+            <th className="cache-policy-title" colSpan={references.length + 1}>{policy}</th>
+          </tr>
+          <tr>
+            <th className="row-name">Reference</th>
             {references.map((page, index) => (
-              <th key={index}><span>{page}</span><small>{index + 1}</small></th>
+              <th key={index}>{page}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {Array.from({ length: frameCount }, (_, frameIndex) => (
             <tr key={frameIndex}>
-              <th className="row-name">Frame {frameIndex + 1}</th>
-              {references.map((_, index) => {
+              <th className="row-name frame-number">{frameIndex + 1}</th>
+              {events.map((event, index) => {
                 const answerKey = `${policy}-${frameIndex}-${index}`;
 
                 return (
                   <td key={index}>
                     <CacheFrameCell
                       isAnswerVisible={isAnswerVisible}
-                      expectedValue={steps[index].frames[frameIndex]}
+                      expectedValue={event.frameIndex === frameIndex ? event.value : undefined}
                       answer={frameAnswers[answerKey] ?? ""}
-                      label={`${policy} frame ${frameIndex + 1}, reference ${index + 1}`}
+                      label={`${policy}, frame ${frameIndex + 1}, reference ${index + 1} (page ${references[index]})`}
                       onAnswerChange={(value) => onFrameAnswer(answerKey, value)}
                     />
                   </td>
@@ -54,24 +66,10 @@ export default function CacheTable({
               })}
             </tr>
           ))}
-          <tr className="hit-row">
-            <th className="row-name">Result</th>
-            {steps.map((step, index) => (
-              <td key={index}>
-                <CacheResultCell isAnswerVisible={isAnswerVisible} isHit={step.hit} />
-              </td>
-            ))}
-          </tr>
         </tbody>
-        <CacheFaultSummary
-          isAnswerVisible={isAnswerVisible}
-          referencesCount={references.length}
-          steps={steps}
-          policy={policy}
-        />
       </table>
       <p className="table-note">
-        Enter the frame contents from left to right. A “+” marks a hit; “×” marks a page fault. Use <strong>Show answer</strong> to reveal the completed table.
+        Enter the loaded page on a miss and + on a hit. Leave unchanged frames empty, then use <strong>Show answer</strong> to compare your work.
       </p>
     </div>
   );

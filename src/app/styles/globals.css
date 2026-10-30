@@ -1,12 +1,25 @@
 @import "tailwindcss";
 
 :root {
-    --ink: #20241f;
-    --muted: #777c76;
-    --line: #e9ebe6;
-    --paper: #fff;
-    --canvas: #f8f9f6;
-    --green: #d66a24;
+    color-scheme: dark;
+    --color-page: #090d10;
+    --color-page-overlay: rgba(7, 12, 17, .9);
+    --color-surface: #181e22;
+    --color-surface-raised: #20272b;
+    --color-surface-inset: #101519;
+    --color-surface-soft: #272d30;
+    --color-border: #30383c;
+    --color-border-strong: #3b4448;
+    --color-border-soft: rgba(255, 255, 255, .12);
+    --color-text-primary: #f4f5f3;
+    --color-text-secondary: #aab0b2;
+    --color-accent: #d66a24;
+    --color-accent-hover: #b7551e;
+    --color-accent-light: #f0a270;
+    --color-accent-soft: #38251b;
+    --color-accent-border: #8d4c29;
+    --color-on-accent: #fff;
+    --color-shadow: rgba(0, 0, 0, .3);
 }
 
 * {
@@ -18,12 +31,12 @@ html {
 }
 
 body {
-    background-color: var(--canvas);
-    background-image: linear-gradient(rgba(255, 255, 255, .9), rgba(172, 169, 169, 0.9)), url("/istockphoto-1401568968-612x612.jpg");
+    background-color: var(--color-page);
+    background-image: linear-gradient(var(--color-page-overlay), var(--color-page-overlay)), url("/istockphoto-1401568968-612x612.jpg");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    color: var(--ink);
+    color: var(--color-text-primary);
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
 }

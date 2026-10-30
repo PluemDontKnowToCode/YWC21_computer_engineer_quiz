@@ -1,8 +1,8 @@
 import BitLesson from "./bit-lesson";
-import LessonLayout from "../components/lesson-layout";
-import type { LessonTab } from "../components/lesson-types";
+import LessonLayout from "../components/layout/lesson-layout";
+import type { LessonTab } from "../components/navigation/lesson-types";
 import type { BitOperation } from "../../service/bits/operations";
-import { operationContent } from "./operation-content";
+import { operationContent } from "./components/operation/operation-content";
 
 const lessonTabByOperation: Record<BitOperation, LessonTab> = {
   sum: "sum",

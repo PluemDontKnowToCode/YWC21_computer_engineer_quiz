@@ -2,33 +2,76 @@
 
 import { useState } from "react";
 import {
-  formatNumber,
-  parseBinaryInput,
-  parseDecimalInput,
-  parseHexInput,
+  formatForBase,
+  isNumberBase,
+  parseNumberInput,
+  type NumberBase,
 } from "../../service/bits/number-conversion";
-import ConverterField from "./components/converter-field";
+import ConverterField from "./components/converter/converter-field";
+
+const BASE_LABELS: Record<NumberBase, string> = {
+  decimal: "Decimal",
+  hex: "Hexadecimal",
+  binary: "Binary",
+};
+const NUMBER_BASES: NumberBase[] = ["decimal", "hex", "binary"];
 
 export default function NumberConverter() {
-  const [values, setValues] = useState(formatNumber(13));
+  const [sourceValue, setSourceValue] = useState("13");
+  const [sourceBase, setSourceBase] = useState<NumberBase>("decimal");
+  const [targetBase, setTargetBase] = useState<NumberBase>("binary");
+  const [answer, setAnswer] = useState("");
+  const [isAnswerVisible, setIsAnswerVisible] = useState(false);
 
-  const updateDecimal = (decimal: string) => {
-    setValues((current) => ({ ...current, decimal }));
-    const value = parseDecimalInput(decimal);
-    if (value !== null) setValues(formatNumber(value));
+  const sourceNumber = parseNumberInput(sourceValue, sourceBase);
+  const expectedAnswer = sourceNumber === null ? "" : formatForBase(sourceNumber, targetBase);
+
+  const handleSourceValueChange = (value: string) => {
+    setSourceValue(value);
+    setAnswer("");
+    setIsAnswerVisible(false);
   };
 
-  const updateHex = (hex: string) => {
-    const normalized = hex.toUpperCase();
-    setValues((current) => ({ ...current, hex: normalized }));
-    const value = parseHexInput(normalized);
-    if (value !== null) setValues({ ...formatNumber(value), hex: normalized });
+  const handleTargetBaseChange = (base: string) => {
+    if (!isNumberBase(base)) return;
+    if (base === sourceBase) return;
+    setTargetBase(base);
+    setAnswer("");
+    setIsAnswerVisible(false);
   };
 
-  const updateBinary = (binary: string) => {
-    setValues((current) => ({ ...current, binary }));
-    const value = parseBinaryInput(binary);
-    if (value !== null) setValues({ ...formatNumber(value), binary });
+  const handleAnswerChange = (value: string) => {
+    setAnswer(value);
+    setIsAnswerVisible(false);
+  };
+
+  const handleToggleAnswer = () => {
+    if (isAnswerVisible) {
+      setAnswer("");
+      setIsAnswerVisible(false);
+      return;
+    }
+
+    if (sourceNumber === null) return;
+    setAnswer(expectedAnswer);
+    setIsAnswerVisible(true);
+  };
+
+  const handleSwapConversion = () => {
+    const outputValue = isAnswerVisible ? expectedAnswer : answer;
+    setSourceBase(targetBase);
+    setTargetBase(sourceBase);
+    setSourceValue(outputValue);
+    setAnswer(sourceValue);
+    setIsAnswerVisible(false);
+  };
+
+  const handleSourceBaseChange = (base: string) => {
+    if (!isNumberBase(base)) return;
+    setSourceBase(base);
+    if (base === targetBase) setTargetBase(sourceBase);
+    setAnswer("");
+    setIsAnswerVisible(false);
   };
 
   return (
@@ -42,33 +85,94 @@ export default function NumberConverter() {
       </div>
 
       <p className="section-copy">
-        Enter a value in any field to convert it to the other two formats. This converter uses unsigned 8-bit values from 0 to 255.
+        Choose an input and output base, then enter your answer below. This exercise uses unsigned 8-bit values from 0 to 255.
       </p>
 
-      <div className="number-converter">
-        <ConverterField
-          label="DECIMAL"
-          ariaLabel="Decimal value from 0 to 255"
-          inputMode="numeric"
-          value={values.decimal}
-          onChange={updateDecimal}
-        />
-        <ConverterField
-          label="HEXADECIMAL"
-          ariaLabel="Hexadecimal value"
-          autoCapitalize="characters"
-          value={values.hex}
-          onChange={updateHex}
-        />
-        <ConverterField
-          label="BINARY"
-          ariaLabel="Binary value"
-          inputMode="numeric"
-          value={values.binary}
-          onChange={updateBinary}
-        />
+      <div className="conversion-exercise">
+        <div className="conversion-converter">
+          <div className="conversion-side">
+            <label className="converter-field">
+              <span>INPUT · CONVERT FROM</span>
+              <select
+                aria-label="Input number base"
+                value={sourceBase}
+                onChange={(event) => handleSourceBaseChange(event.target.value)}
+              >
+                {NUMBER_BASES.map((base) => (
+                  <option key={base} value={base}>{BASE_LABELS[base]}</option>
+                ))}
+              </select>
+            </label>
+            <ConverterField
+              label="INPUT VALUE"
+              ariaLabel={`Input value in ${BASE_LABELS[sourceBase]}`}
+              inputMode={sourceBase === "hex" ? undefined : "numeric"}
+              autoCapitalize={sourceBase === "hex" ? "characters" : undefined}
+              value={sourceValue}
+              onChange={handleSourceValueChange}
+            />
+          </div>
+
+          <div className="conversion-controls">
+            <button
+              className="conversion-swap"
+              type="button"
+              aria-label="Swap input and output"
+              title="Swap input and output"
+              onClick={handleSwapConversion}
+            >
+              ⇅
+            </button>
+            <button
+              className="show-cache-answer conversion-answer-toggle"
+              type="button"
+              disabled={sourceNumber === null}
+              onClick={handleToggleAnswer}
+            >
+              {isAnswerVisible ? "Hide answer" : "Show answer"}
+              <span aria-hidden="true">{isAnswerVisible ? "−" : "+"}</span>
+            </button>
+          </div>
+
+          <div className="conversion-side">
+            <label className="converter-field">
+              <span>OUTPUT · CONVERT TO</span>
+              <select
+                aria-label="Output number base"
+                value={targetBase}
+                onChange={(event) => handleTargetBaseChange(event.target.value)}
+              >
+                {NUMBER_BASES.map((base) => (
+                  <option key={base} value={base} disabled={base === sourceBase}>
+                    {BASE_LABELS[base]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <ConverterField
+              label="YOUR ANSWER"
+              ariaLabel={`Your ${BASE_LABELS[targetBase]} answer`}
+              inputMode={targetBase === "hex" ? undefined : "numeric"}
+              autoCapitalize={targetBase === "hex" ? "characters" : undefined}
+              value={answer}
+              onChange={handleAnswerChange}
+            />
+          </div>
+        </div>
+
+        {sourceValue && sourceNumber === null && (
+          <p className="conversion-error">Enter a valid {BASE_LABELS[sourceBase]} value from 0 to 255.</p>
+        )}
       </div>
-      <p className="sequence-caption">Hex accepts 00–FF. Binary accepts up to 8 bits.</p>
+
+      <p className="sequence-caption">Hex accepts 00–FF. Binary accepts up to 8 bits; leading zeros are optional in your answer.</p>
+      <div className="takeaway conversion-example">
+        <div className="takeaway-icon" aria-hidden="true">✦</div>
+        <div>
+          <strong>Read the same value in three bases</strong>
+          <p>Decimal 13 = binary 00001101 = hexadecimal 0D. The 1s in 00001101 represent 8 + 4 + 1; the hex digit D represents 13.</p>
+        </div>
+      </div>
     </section>
   );
 }

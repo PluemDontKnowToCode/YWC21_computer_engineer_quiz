@@ -22,11 +22,15 @@ export default function BitOperands({
 }: BitOperandsProps) {
   return (
     <div className="operand-row">
-      <BitOperandInput label="First number" value={left} onChange={onLeftChange} />
-      <BinaryDisplay value={leftBinary} />
+      <div className="operand-group">
+        <BitOperandInput label="First number" value={left} onChange={onLeftChange} />
+        <BinaryDisplay value={leftBinary} />
+      </div>
       <div className="operand-operator">{operator}</div>
-      <BitOperandInput label="Second number" value={right} onChange={onRightChange} />
-      <BinaryDisplay value={rightBinary} />
+      <div className="operand-group">
+        <BitOperandInput label="Second number" value={right} onChange={onRightChange} />
+        <BinaryDisplay value={rightBinary} />
+      </div>
     </div>
   );
 }

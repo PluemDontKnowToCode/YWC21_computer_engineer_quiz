@@ -1,6 +1,6 @@
 import CacheLesson from "./cache-lesson";
-import LessonLayout from "../components/lesson-layout";
-import type { LessonTab } from "../components/lesson-types";
+import LessonLayout from "../components/layout/lesson-layout";
+import type { LessonTab } from "../components/navigation/lesson-types";
 import type { Policy } from "../../service/cache/types";
 
 const lessonTabByPolicy: Record<Policy, LessonTab> = {
@@ -11,10 +11,10 @@ const lessonTabByPolicy: Record<Policy, LessonTab> = {
 };
 
 const policyIntros: Record<Policy, string> = {
-  FIFO: "FIFO removes the page that has been in cache the longest.",
-  LRU: "LRU removes the page that has gone unused for the longest time.",
-  MIN: "MIN removes the page whose next use is farthest in the future.",
-  LFU: "LFU removes the least frequently used page, breaking ties with least recent use.",
+  FIFO: "First in, first out (FIFO) replaces the page that entered the cache earliest. A hit does not change its arrival order.",
+  LRU: "Least recently used (LRU) replaces the page whose most recent access was longest ago. Every hit updates which page is newest.",
+  MIN: "MIN replaces the page whose next reference is farthest away. It can look ahead, so it is an ideal benchmark rather than a policy a real cache can usually implement.",
+  LFU: "Least frequently used (LFU) replaces the resident page with the fewest references. When counts tie, this lesson uses LRU as the tie-breaker.",
 };
 
 export default function CachePolicyRoute({ policy }: { policy: Policy }) {

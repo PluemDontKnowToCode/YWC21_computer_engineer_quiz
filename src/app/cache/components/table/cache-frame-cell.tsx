@@ -3,7 +3,7 @@ import CacheFrameInput from "./cache-frame-input";
 
 type CacheFrameCellProps = {
   isAnswerVisible: boolean;
-  expectedValue: number | undefined;
+  expectedValue: string | undefined;
   answer: string;
   label: string;
   onAnswerChange: (value: string) => void;

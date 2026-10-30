@@ -1,4 +1,4 @@
-import type { CacheStep, Policy } from "../../../service/cache/types";
+import type { CacheStep, Policy } from "../../../../service/cache/types";
 import CacheEmptyState from "./cache-empty-state";
 import CacheTable from "./cache-table";
 

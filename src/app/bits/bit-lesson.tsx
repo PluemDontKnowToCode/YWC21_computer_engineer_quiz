@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { calculateBitOperation, clampUnsignedByte, type BitOperation } from "../../service/bits/operations";
 import { binary } from "../../service/bits/binary-format";
-import BitOperands from "./components/bit-operands";
-import BitLessonHeading from "./components/bit-lesson-heading";
-import BitResultSummary from "./components/bit-result-summary";
-import BitTip from "./components/bit-tip";
-import { operationContent } from "./operation-content";
+import BitOperands from "./components/operation/bit-operands";
+import BitLessonHeading from "./components/operation/bit-lesson-heading";
+import BitResultSummary from "./components/operation/bit-result-summary";
+import BitTip from "./components/operation/bit-tip";
+import { operationContent } from "./components/operation/operation-content";
 
 export default function BitLesson({ operation }: { operation: BitOperation }) {
   const [left, setLeft] = useState(13);
@@ -47,7 +47,7 @@ export default function BitLesson({ operation }: { operation: BitOperation }) {
           binaryResult={binary(result)}
           description={content.description}
         />
-        <BitTip />
+        <BitTip text={content.tip} />
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   clampFrameCount,
   makeReference,
@@ -19,6 +19,10 @@ export default function useCacheLesson(policy: Policy) {
 
   const references = parseReferences(referenceInput);
   const steps = simulate(policy, references, frameCount);
+
+  useEffect(() => {
+    setReferenceInput((current) => makeReference(current));
+  }, []);
 
   const handleReferenceChange = (value: string) => {
     setReferenceInput(value);

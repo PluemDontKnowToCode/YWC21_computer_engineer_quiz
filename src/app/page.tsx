@@ -1,5 +1,5 @@
 import Link from "next/link";
-import WelcomeLayout from "./components/welcome-layout";
+import WelcomeLayout from "./components/layout/welcome-layout";
 
 const learningPaths = [
   {
