@@ -42,7 +42,7 @@ export default function Home() {
               <p className="welcome-eyebrow"><span aria-hidden="true">01 /</span> A PRACTICAL GUIDE TO COMPUTER SYSTEMS</p>
               <h1 id="welcome-title">Understand the systems behind the screen.</h1>
               <p className="welcome-intro">
-                Build confidence with interactive lessons on memory, cache policies, and bit operations.
+                Explore cache behavior, bit operations, and number conversion through interactive lessons.
                 Learn one concept at a time, at your own pace.
               </p>
               <div className="welcome-actions">

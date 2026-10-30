@@ -69,6 +69,8 @@
 .welcome-primary-action span,
 .welcome-path-action span {
     margin-left: 6px;
+    display: inline-block;
+    transition: transform .18s ease;
 }
 
 .welcome-hero {
@@ -175,13 +177,14 @@
     color: var(--color-on-accent);
     font-size: 12px;
     font-weight: 700;
-    transition: background-color .15s ease, transform .15s ease;
+    transition: background-color .15s ease, transform .15s ease, scale .16s ease;
     cursor: pointer;
 }
 
 .welcome-primary-action:hover {
     background: var(--color-accent-hover);
     transform: translateY(-1px);
+    scale: 1.03;
 }
 
 .welcome-note {
@@ -238,6 +241,10 @@
 .welcome-path-card:hover {
     border-color: var(--color-accent-border);
     background: var(--color-surface-raised);
+}
+
+.welcome-path-card:hover .welcome-path-action span {
+    transform: translateX(3px);
 }
 
 .welcome-path-card:first-child {
@@ -1205,8 +1212,100 @@ html :is(a, button, input, select):focus-visible {
     outline-offset: 2px;
 }
 
-html :is(.sidebar-toggle, .help-button, .randomize-button, .operation-buttons button, .policy-tab, .show-cache-answer, .conversion-randomize, .conversion-swap) {
-    transition: color .15s ease, background-color .15s ease, border-color .15s ease;
+html button {
+    scale: 1;
+    transition: scale .16s ease;
+}
+
+html :is(.sidebar-toggle, .help-button, .randomize-button, .operation-buttons button, .policy-tab, .show-cache-answer, .answer-button, .bookmark, .share, .conversion-randomize, .conversion-swap) {
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease, scale .16s ease;
+}
+
+@media (hover: hover) {
+    html button:not(:disabled):hover,
+    .welcome-primary-action:hover {
+        scale: 1.03;
+    }
+}
+
+html button:not(:disabled):active {
+    scale: 1;
+}
+
+html :is(button:not(.conversion-swap), .welcome-primary-action):active {
+    transform: scale(.98);
+}
+
+@keyframes content-arrive {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.welcome-header,
+.welcome-paths-heading,
+.content-wrap > .lesson-toolbar,
+.content-wrap > .intro {
+    animation: content-arrive .45s cubic-bezier(.2, .7, .25, 1) both;
+}
+
+.welcome-hero-copy,
+.content-wrap > .lesson-section {
+    animation: content-arrive .55s cubic-bezier(.2, .7, .25, 1) both;
+    animation-delay: .08s;
+}
+
+.welcome-field-note {
+    animation: content-arrive .55s cubic-bezier(.2, .7, .25, 1) both;
+    animation-delay: .18s;
+}
+
+.welcome-paths {
+    animation: content-arrive .5s cubic-bezier(.2, .7, .25, 1) both;
+    animation-delay: .16s;
+}
+
+.welcome-path-card {
+    animation: content-arrive .45s cubic-bezier(.2, .7, .25, 1) both;
+}
+
+.welcome-path-card:nth-child(2) {
+    animation-delay: .08s;
+}
+
+.welcome-path-card:nth-child(3) {
+    animation-delay: .16s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+
+    html button,
+    .welcome-primary-action {
+        scale: 1 !important;
+    }
+
+    html button:not(.conversion-swap):active,
+    html .welcome-primary-action:hover {
+        transform: none !important;
+    }
+
+    html .conversion-swap:is(:hover, :active) {
+        transform: translateX(-50%) !important;
+    }
 }
 
 @media (max-width: 700px) {

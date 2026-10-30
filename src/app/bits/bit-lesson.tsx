@@ -13,6 +13,7 @@ export default function BitLesson({ operation }: { operation: BitOperation }) {
   const [left, setLeft] = useState(13);
   const [right, setRight] = useState(5);
   const content = operationContent[operation];
+  const isShiftOperation = operation === "shl" || operation === "shr";
   const result = calculateBitOperation(operation, left, right);
 
   const handleNumberChange = (value: string, setNumber: (next: number) => void) => {
@@ -38,6 +39,7 @@ export default function BitLesson({ operation }: { operation: BitOperation }) {
           leftBinary={binary(left)}
           rightBinary={binary(right)}
           operator={content.symbol}
+          isShiftOperation={isShiftOperation}
           onLeftChange={(value) => handleNumberChange(value, setLeft)}
           onRightChange={(value) => handleNumberChange(value, setRight)}
         />

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Bytewise — Computer Engineering Learning Lab",
-  description: "Learn cache replacement policies and bit manipulation with clear examples and interactive practice.",
+  description: "Practice cache replacement policies, bit operations, and decimal, hexadecimal, and binary conversion.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

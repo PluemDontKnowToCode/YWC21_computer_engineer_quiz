@@ -7,6 +7,7 @@ type BitOperandsProps = {
   leftBinary: string;
   rightBinary: string;
   operator: string;
+  isShiftOperation: boolean;
   onLeftChange: (value: string) => void;
   onRightChange: (value: string) => void;
 };
@@ -17,20 +18,27 @@ export default function BitOperands({
   leftBinary,
   rightBinary,
   operator,
+  isShiftOperation,
   onLeftChange,
   onRightChange,
 }: BitOperandsProps) {
   return (
-    <div className="operand-row">
+    <div className={isShiftOperation ? "operand-row operand-row--shift" : "operand-row"}>
       <div className="operand-group">
-        <BitOperandInput label="First number" value={left} onChange={onLeftChange} />
+        <BitOperandInput
+          label={isShiftOperation ? "Number to shift" : "First number"}
+          value={left}
+          onChange={onLeftChange}
+        />
         <BinaryDisplay value={leftBinary} />
       </div>
       <div className="operand-operator">{operator}</div>
-      <div className="operand-group">
-        <BitOperandInput label="Second number" value={right} onChange={onRightChange} />
-        <BinaryDisplay value={rightBinary} />
-      </div>
+      {!isShiftOperation && (
+        <div className="operand-group">
+          <BitOperandInput label="Second number" value={right} onChange={onRightChange} />
+          <BinaryDisplay value={rightBinary} />
+        </div>
+      )}
     </div>
   );
 }
