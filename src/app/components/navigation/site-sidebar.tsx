@@ -9,7 +9,20 @@ type SiteSidebarProps = {
   onToggle: () => void;
 };
 
-const lessonGroups: { title: string; items: { tab: LessonTab; code: string; label: string; title: string; href: string }[] }[] = [
+type LessonNavigationItem = {
+  tab: LessonTab;
+  code: string;
+  label: string;
+  title: string;
+  href: string;
+};
+
+type LessonNavigationGroup = {
+  title: string;
+  items: LessonNavigationItem[];
+};
+
+const LESSON_GROUPS: LessonNavigationGroup[] = [
   {
     title: "Cache policies",
     items: [
@@ -29,22 +42,23 @@ const lessonGroups: { title: string; items: { tab: LessonTab; code: string; labe
     ],
   },
   {
-    title: "Number Convertions",
+    title: "Number conversion",
     items: [
-      { tab: "convert", code: "CV", label: "CONVERT", title: "Decimal, hexadecimal, and binary converter", href: "/bits/convert" },
+      {
+        tab: "convert",
+        code: "CV",
+        label: "CONVERT",
+        title: "Decimal, hexadecimal, and binary converter",
+        href: "/bits/convert",
+      },
     ],
   },
   {
-    title: "...MORE CONTENT...",
+    title: "Practice",
     items: [
+      { tab: "quiz", code: "QZ", label: "QUIZ", title: "Mixed practice quiz", href: "/quiz" },
     ],
   },
-  // {
-  //   title: "Practice",
-  //   items: [
-  //     { tab: "quiz", code: "QZ", label: "QUIZ", title: "Mixed practice quiz", href: "/quiz" },
-  //   ],
-  // },
 ];
 
 export default function SiteSidebar({ lesson, isExpanded, onToggle }: SiteSidebarProps) {
@@ -61,7 +75,7 @@ export default function SiteSidebar({ lesson, isExpanded, onToggle }: SiteSideba
           <span>bytewise<small>THE LEARNING LAB</small></span>
         </Link>
       </div>
-      {lessonGroups.map((group) => (
+      {LESSON_GROUPS.map((group) => (
         <div className="lesson-group" key={group.title}>
           <div className="side-label lesson-group-label">{group.title}</div>
           <nav className="lesson-nav" aria-label={group.title}>

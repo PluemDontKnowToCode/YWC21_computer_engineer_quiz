@@ -26,11 +26,13 @@ export default function useCacheLesson(policy: Policy) {
 
   const handleReferenceChange = (value: string) => {
     setReferenceInput(value);
+    setFrameAnswers({});
     setIsAnswerVisible(false);
   };
 
   const handleFrameCountChange = (value: string) => {
     setFrameCount(clampFrameCount(value));
+    setFrameAnswers({});
     setIsAnswerVisible(false);
   };
 

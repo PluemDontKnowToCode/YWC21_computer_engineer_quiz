@@ -7,7 +7,7 @@ import BitOperands from "./components/operation/bit-operands";
 import BitLessonHeading from "./components/operation/bit-lesson-heading";
 import BitResultSummary from "./components/operation/bit-result-summary";
 import BitTip from "./components/operation/bit-tip";
-import { operationContent } from "./components/operation/operation-content";
+import { operationContent } from "./operation-content";
 
 export default function BitLesson({ operation }: { operation: BitOperation }) {
   const [left, setLeft] = useState(13);

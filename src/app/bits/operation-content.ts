@@ -1,4 +1,4 @@
-import type { BitOperation } from "../../../../service/bits/operations";
+import type { BitOperation } from "../../service/bits/operations";
 
 export const operationContent: Record<BitOperation, {
   title: string;

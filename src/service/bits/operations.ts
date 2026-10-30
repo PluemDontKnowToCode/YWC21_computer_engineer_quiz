@@ -15,6 +15,9 @@ export function calculateBitOperation(operation: BitOperation, left: number, rig
 }
 
 export function clampUnsignedByte(input: string): number {
-  const value = Number(input);
-  return Math.max(MIN_OPERAND, Math.min(MAX_OPERAND, value));
+  const parsedValue = Number(input);
+  if (!Number.isFinite(parsedValue)) return MIN_OPERAND;
+
+  const integerValue = Math.trunc(parsedValue);
+  return Math.max(MIN_OPERAND, Math.min(MAX_OPERAND, integerValue));
 }

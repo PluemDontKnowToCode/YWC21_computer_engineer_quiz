@@ -1,3 +1,4 @@
+import { buildCacheTableEvents } from "../../../../service/cache/table-events";
 import type { CacheStep, Policy } from "../../../../service/cache/types";
 import CacheFrameCell from "./cache-frame-cell";
 
@@ -20,16 +21,7 @@ export default function CacheTable({
   frameAnswers,
   onFrameAnswer,
 }: CacheTableProps) {
-  const events = steps.map((step, index) => {
-    const previousFrames = steps[index - 1]?.frames ?? [];
-    const frameIndex = step.hit
-      ? step.frames.indexOf(step.page)
-      : step.evicted === null
-        ? previousFrames.length
-        : previousFrames.indexOf(step.evicted);
-
-    return { frameIndex, value: step.hit ? "+" : String(step.page) };
-  });
+  const events = buildCacheTableEvents(steps);
 
   return (
     <div className="cache-table-wrap">

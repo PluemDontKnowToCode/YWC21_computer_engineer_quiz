@@ -12,11 +12,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 This repository is a small computer-engineering learning app built with Next.js 16.4.3, React, TypeScript, and the App Router.
 
-**Before writing or changing code, read `SKILL.md` (readable-code).** It defines naming, function size, component structure, and when to split files.
+**Before writing or changing code, follow the installed readable-code skill when available.** It defines naming, function size, component structure, and when to split files; a project-local `SKILL.md` is not required.
 
 ### App structure
 
-- `src/app/page.tsx` sends the home route to `/cache` (FIFO).
+- `src/app/page.tsx` renders the welcome page and links into the lessons and practice quiz.
 - Cache lesson routes are `/cache` (FIFO), `/cache/lru`, `/cache/min`, and `/cache/lfu`.
 - Bit lesson routes are `/bits` (SUM), `/bits/subtract`, `/bits/shl`, `/bits/shr`, and `/bits/convert`.
 - The mixed practice quiz is at `/quiz`; its correct-answer total is stored in browser `localStorage`.
@@ -24,7 +24,8 @@ This repository is a small computer-engineering learning app built with Next.js 
 - `src/app/cache/cache-lesson.tsx` and `src/app/bits/bit-lesson.tsx` compose the independent interactive lesson UIs from feature components.
 - `src/app/cache/components/controls/`, `table/`, and `feedback/` group the cache controls, table cells, and lesson feedback.
 - `src/app/bits/components/operation/` and `converter/` group bit-operation UI and number-converter fields.
-- `src/app/bits/number-converter.tsx` converts unsigned 8-bit values between decimal, hexadecimal, and binary.
+- `src/app/bits/operation-content.ts` stores lesson text and symbols separately from the UI components.
+- `src/app/bits/number-converter.tsx` renders the unsigned 8-bit conversion exercise and uses helpers from `src/service/bits/number-conversion.ts`.
 - The left lesson sidebar has one entry per lesson route; keep its links and active-page state synchronized with the route.
 - `src/app/components/layout/` contains the shared lesson and welcome shells.
 - `src/app/components/navigation/` contains the lesson sidebar, collapse control, nav links, and shared lesson type. Keep route selection and `aria-current` in sync with the active lesson.
