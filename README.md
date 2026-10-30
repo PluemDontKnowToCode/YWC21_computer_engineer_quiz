@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Run locally
 
-## Getting Started
-
-First, run the development server:
+Install dependencies and start the development server with pnpm:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000> to use the app. The production build uses `pnpm build`, and `pnpm start` serves that build locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push this repository to GitHub, GitLab, or Bitbucket.
+2. In [Vercel](https://vercel.com/new), import the repository.
+3. Keep the project root set to `.` (the repository root) and leave the framework and build settings on **Next.js / Automatic**.
+4. In the Vercel project settings, add `ENABLE_EXPERIMENTAL_COREPACK=1` for **Production**, **Preview**, and **Development** so Vercel uses the pnpm version pinned in `package.json` (`pnpm@12.6.0`).
+5. Deploy. Vercel detects Next.js and runs the existing build script.
 
-## Learn More
+The app stores quiz practice progress in the visitor's browser, so it does not need database credentials or other app-specific environment variables.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+After the repository is connected, Vercel builds and deploys new commits automatically: pushes to the configured production branch create production deployments, and pushes to other branches create preview deployments. No separate build/deploy workflow file is needed. Commit and push changes to the connected Git repository to publish an update.

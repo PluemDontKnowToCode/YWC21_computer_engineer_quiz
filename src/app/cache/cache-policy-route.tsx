@@ -1,7 +1,7 @@
 import CacheLesson from "./cache-lesson";
 import LessonLayout from "../components/lesson-layout";
-import type { LessonTab } from "../lesson-types";
-import type { Policy } from "../../service/learning-utils";
+import type { LessonTab } from "../components/lesson-types";
+import type { Policy } from "../../service/cache/types";
 
 const lessonTabByPolicy: Record<Policy, LessonTab> = {
   FIFO: "fifo",

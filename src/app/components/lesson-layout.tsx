@@ -2,8 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import SiteSidebar from "./site-sidebar";
-import { ThemeToggle } from "./theme-provider";
-import type { LessonTab } from "../lesson-types";
+import type { LessonTab } from "./lesson-types";
 
 type LessonLayoutProps = {
   lesson: LessonTab;
@@ -29,14 +28,9 @@ export default function LessonLayout({ lesson, kicker, intro, children }: Lesson
               <span className="spark">✳</span>
               <span className="kicker-dot">·</span> {kicker}
             </div>
-            <ThemeToggle />
           </div>
           <p className="intro">{intro}</p>
           {children}
-          <footer className="lesson-footer">
-            <span>Nice work — you’re one step closer.</span>
-            <a href="#top">Back to top ↑</a>
-          </footer>
         </div>
       </div>
     </main>

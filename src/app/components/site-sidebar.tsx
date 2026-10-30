@@ -1,8 +1,10 @@
 import Link from "next/link";
-import type { LessonTab } from "../lesson-types";
+import type { LessonTab } from "./lesson-types";
+import LessonNavLink from "./lesson-nav-link";
+import SidebarToggleButton from "./sidebar-toggle-button";
 
 type SiteSidebarProps = {
-  lesson: LessonTab;
+  lesson: LessonTab | null;
   isExpanded: boolean;
   onToggle: () => void;
 };
@@ -27,25 +29,23 @@ const lessonGroups: { title: string; items: { tab: LessonTab; code: string; labe
       { tab: "convert", code: "CV", label: "CONVERT", title: "Decimal, hexadecimal, and binary converter", href: "/bits/convert" },
     ],
   },
+  {
+    title: "Practice",
+    items: [
+      { tab: "quiz", code: "QZ", label: "QUIZ", title: "Mixed practice quiz", href: "/quiz" },
+    ],
+  },
 ];
 
 export default function SiteSidebar({ lesson, isExpanded, onToggle }: SiteSidebarProps) {
   return (
     <aside
       id="lesson-sidebar"
-      className={isExpanded ? "sidebar" : "sidebar sidebar-collapsed"}
+      className="sidebar"
+      data-collapsed={!isExpanded}
     >
       <div className="sidebar-top">
-        <button
-          className="sidebar-toggle"
-          type="button"
-          aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
-          aria-expanded={isExpanded}
-          aria-controls="lesson-sidebar"
-          onClick={onToggle}
-        >
-          <span aria-hidden="true">{isExpanded ? "‹" : "›"}</span>
-        </button>
+        <SidebarToggleButton isExpanded={isExpanded} onToggle={onToggle} />
         <Link className="brand" href="/" aria-label="Bytewise home">
           <span className="brand-mark">CE</span>
           <span>bytewise<small>THE LEARNING LAB</small></span>
@@ -58,15 +58,11 @@ export default function SiteSidebar({ lesson, isExpanded, onToggle }: SiteSideba
           <div className="side-label lesson-group-label">{group.title}</div>
           <nav className="lesson-nav" aria-label={group.title}>
             {group.items.map((item) => (
-              <Link
+              <LessonNavLink
                 key={item.tab}
-                className={lesson === item.tab ? "nav-item current" : "nav-item"}
-                href={item.href}
-                title={item.title}
-                aria-current={lesson === item.tab ? "page" : undefined}
-              >
-                <span aria-hidden="true">{item.code}</span>{item.label}
-              </Link>
+                lesson={lesson}
+                {...item}
+              />
             ))}
           </nav>
         </div>

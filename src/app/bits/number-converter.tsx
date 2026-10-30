@@ -1,35 +1,34 @@
 "use client";
 
 import { useState } from "react";
-
-const formatValue = (value: number) => ({
-  decimal: String(value),
-  hex: value.toString(16).toUpperCase().padStart(2, "0"),
-  binary: value.toString(2).padStart(8, "0"),
-});
+import {
+  formatNumber,
+  parseBinaryInput,
+  parseDecimalInput,
+  parseHexInput,
+} from "../../service/bits/number-conversion";
+import ConverterField from "./components/converter-field";
 
 export default function NumberConverter() {
-  const [values, setValues] = useState(formatValue(13));
+  const [values, setValues] = useState(formatNumber(13));
 
   const updateDecimal = (decimal: string) => {
     setValues((current) => ({ ...current, decimal }));
-    if (!/^\d{1,3}$/.test(decimal)) return;
-    const value = Number(decimal);
-    if (value <= 255) setValues(formatValue(value));
+    const value = parseDecimalInput(decimal);
+    if (value !== null) setValues(formatNumber(value));
   };
 
   const updateHex = (hex: string) => {
     const normalized = hex.toUpperCase();
     setValues((current) => ({ ...current, hex: normalized }));
-    const digits = normalized.replace(/^0X/, "");
-    if (!/^[\da-f]{1,2}$/i.test(digits)) return;
-    setValues({ ...formatValue(Number.parseInt(digits, 16)), hex: normalized });
+    const value = parseHexInput(normalized);
+    if (value !== null) setValues({ ...formatNumber(value), hex: normalized });
   };
 
   const updateBinary = (binary: string) => {
     setValues((current) => ({ ...current, binary }));
-    if (!/^[01]{1,8}$/.test(binary)) return;
-    setValues({ ...formatValue(Number.parseInt(binary, 2)), binary });
+    const value = parseBinaryInput(binary);
+    if (value !== null) setValues({ ...formatNumber(value), binary });
   };
 
   return (
@@ -47,35 +46,27 @@ export default function NumberConverter() {
       </p>
 
       <div className="number-converter">
-        <label className="converter-field">
-          <span>DECIMAL</span>
-          <input
-            aria-label="Decimal value from 0 to 255"
-            inputMode="numeric"
-            value={values.decimal}
-            onChange={(event) => updateDecimal(event.target.value)}
-          />
-        </label>
-
-        <label className="converter-field">
-          <span>HEXADECIMAL</span>
-          <input
-            aria-label="Hexadecimal value"
-            autoCapitalize="characters"
-            value={values.hex}
-            onChange={(event) => updateHex(event.target.value)}
-          />
-        </label>
-
-        <label className="converter-field">
-          <span>BINARY</span>
-          <input
-            aria-label="Binary value"
-            inputMode="numeric"
-            value={values.binary}
-            onChange={(event) => updateBinary(event.target.value)}
-          />
-        </label>
+        <ConverterField
+          label="DECIMAL"
+          ariaLabel="Decimal value from 0 to 255"
+          inputMode="numeric"
+          value={values.decimal}
+          onChange={updateDecimal}
+        />
+        <ConverterField
+          label="HEXADECIMAL"
+          ariaLabel="Hexadecimal value"
+          autoCapitalize="characters"
+          value={values.hex}
+          onChange={updateHex}
+        />
+        <ConverterField
+          label="BINARY"
+          ariaLabel="Binary value"
+          inputMode="numeric"
+          value={values.binary}
+          onChange={updateBinary}
+        />
       </div>
       <p className="sequence-caption">Hex accepts 00–FF. Binary accepts up to 8 bits.</p>
     </section>
